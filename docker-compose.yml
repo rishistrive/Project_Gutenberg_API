@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: gutenberg_db
+      POSTGRES_USER: gutenberg_user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./gutenberg_dump.sql:/docker-entrypoint-initdb.d/gutenberg_dump.sql
+      - ./init_db_permissions.sql:/docker-entrypoint-initdb.d/init_db_permissions.sql
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB: gutenberg_db1001
+      POSTGRES_USER: gutenberg_user3
+      POSTGRES_PASSWORD: password
+      DB_HOST: db
+      DB_PORT: 5432
+    # Use wait-for-it to ensure DB is ready before running migrations and starting the server
+    command: ["./wait-for-it.sh", "db:5432", "--", "bash", "-c", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"]
