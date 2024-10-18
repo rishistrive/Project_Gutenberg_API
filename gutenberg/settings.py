@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'gutenberg_db',
         'USER': 'gutenberg_user',
         'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }

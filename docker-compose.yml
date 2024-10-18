@@ -25,7 +25,7 @@ services:
       POSTGRES_DB: gutenberg_db1001
       POSTGRES_USER: gutenberg_user3
       POSTGRES_PASSWORD: password
-      DB_HOST: db
+      DB_HOST: localhost
       DB_PORT: 5432
     # Use wait-for-it to ensure DB is ready before running migrations and starting the server
     command: ["./wait-for-it.sh", "db:5432", "--", "bash", "-c", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"]
