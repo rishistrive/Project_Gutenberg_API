@@ -8,6 +8,10 @@ This project is designed to provide an API for querying and accessing books from
 
 ### Endpoints
 
+**All APIs are available at the following endpoint.**
+[http://localhost:8000/swagger/](http://localhost:8000/swagger/)
+
+
 ```http
   GET {host}/api/books
   GET {host}/api/books/{book_id}
